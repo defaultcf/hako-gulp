@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var indent = require('gulp-indent');
+var htmlprettify = require('gulp-html-prettify');
 var htmlhint = require('gulp-htmlhint');
 var scsslint = require('gulp-scss-lint');
 var phplint  = require('gulp-phplint');
@@ -39,7 +39,14 @@ gulp.task('sass:watch', () => {
 /**
  * Format
  */
-// 実装難しい...
+gulp.task('prettify', () => {
+    gulp.src("src/**/*.html", {base:'src'})
+        .pipe(htmlprettify({
+            indent_char: '\t',
+            indent_size: 1
+        }))
+        .pipe(gulp.dest("dest"));
+});
 
 /**
  * Lint HTML, SCSS
